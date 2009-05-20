@@ -3,6 +3,7 @@ class ConfigsController extends ConfigsAppController {
 
     var $name = 'Configs';
     var $helpers = array('Html', 'Form');
+    var $layout = 'app';
 
     function admin_index() {
         $this->set('configs', $this->Config->find('all',array(
