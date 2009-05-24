@@ -1,5 +1,5 @@
 <?php
-class Config extends ConfigsAppModel {
+class Config extends SettingsAppModel {
     var $name = 'Config';
 }
 ?>

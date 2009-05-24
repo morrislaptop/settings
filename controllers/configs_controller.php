@@ -1,5 +1,5 @@
 <?php
-class ConfigsController extends ConfigsAppController {
+class ConfigsController extends SettingsAppController {
 
     var $name = 'Configs';
     var $helpers = array('Html', 'Form');
