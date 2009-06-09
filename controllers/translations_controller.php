@@ -14,7 +14,7 @@ class TranslationsController extends SettingsAppController {
         $languages = array_combine($languages, $languages);
         $this->set(compact('languages'));
     }
-    
+
     function _languages() {
 		$c = get_defined_constants(true);
 		$folder = new Folder(APP . 'locale');
@@ -54,8 +54,9 @@ class TranslationsController extends SettingsAppController {
             $this->Session->setFlash(__('Invalid id for translation', true));
             $this->redirect('index');
         }
-        if ($this->Config->del($id)) {
+        if ($this->Translation->del($id)) {
             $this->Session->setFlash(__('Translation deleted', true));
+            $this->_write();
             $this->redirect('index');
         }
     }
@@ -74,7 +75,7 @@ class TranslationsController extends SettingsAppController {
 				$trunced[$lang] = true;
 				$file->close();
 			}
-			
+
 			$append = 'msgid "' . str_replace('"', '\\"', $t['name']) . "\"\n";
 			$append .= 'msgstr "' . str_replace('"', '\\"', $t['value']) . "\"\n\n";
 			$file->write($append, 'a');
