@@ -1,12 +1,14 @@
+<?php echo $html->css('tables', false, false, false); ?>
+<div class="translations index">
 <h2>Translations</h2>
 <?php echo $form->create('Translation', array('controller' => 'translations', 'action' => 'save')); ?>
 <table>
 	<thead>
 		<tr>
-			<th>Language</th>
+			<th class="headerLeft">Language</th>
 			<th>Name</th>
 			<th>Value</th>
-			<th>&nbsp;</th>
+			<th class="headerRight">&nbsp;</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -39,3 +41,4 @@
 		?>
 	</tbody>
 </table>
+</div>

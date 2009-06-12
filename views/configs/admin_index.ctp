@@ -1,11 +1,13 @@
+<?php echo $html->css('tables', false, false, false); ?>
+<div class="configs index">
 <h2>Config Values</h2>
 <?php echo $form->create('Config', array('controller' => 'config', 'action' => 'save')); ?>
 <table>
 	<thead>
 		<tr>
-			<th>Name</th>
+			<th class="headerLeft">Name</th>
 			<th>Value</th>
-			<th>&nbsp;</th>
+			<th class="headerRight">&nbsp;</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -36,3 +38,4 @@
 		?>
 	</tbody>
 </table>
+</div>
