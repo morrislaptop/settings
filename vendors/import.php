@@ -1,6 +1,6 @@
 <?php
 function __ConfigsImport() {
-    if (defined('CORE_UPDATED')) {
+    if (true || defined('CORE_UPDATED')) {
         App::import('Core','ConnectionManager');
         $db =& ConnectionManager::getDataSource('default');
         $query = "SELECT name,value FROM configs;";

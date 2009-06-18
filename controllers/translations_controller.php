@@ -16,7 +16,6 @@ class TranslationsController extends SettingsAppController {
     }
 
     function _languages() {
-		$c = get_defined_constants(true);
 		$folder = new Folder(APP . 'locale');
 		$ls = $folder->ls(true);
 		return $ls[0];

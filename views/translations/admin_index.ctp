@@ -31,9 +31,9 @@
 				?>
 				<tr>
 					<td><?php echo $form->input('Translation.'.$i.'.language',array('label'=>false)); ?></td>
-					<td><?php echo $form->input('Translation.'.$i.'.id') . $form->input('Translation.'.$i.'.name', array('label'=>false)); ?></td>
+					<td><?php echo $form->input('Translation.'.$i.'.name', array('label'=>false)); ?></td>
 					<td><?php echo $form->input('Translation.'.$i.'.value', array('label'=>false)); ?></td>
-					<td><?php echo $html->link('Delete', 'delete/'.$translation['Translation']['id'], null, 'Are your sure?'); ?></td>
+					<td><?php echo $form->input('Translation.'.$i.'.id') . $html->link('Delete', 'delete/'.$translation['Translation']['id'], null, 'Are your sure?'); ?></td>
 				</tr>
 				<?php
 			    $i++;

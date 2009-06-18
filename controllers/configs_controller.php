@@ -20,7 +20,6 @@ class ConfigsController extends SettingsAppController {
         }
 
         if (!empty($this->data)) {
-            //$this->Transaction->begin();
             foreach($this->data['Config'] as $config)
             {
                 if ( strlen($config['name']) == 0 ) continue;
@@ -32,7 +31,7 @@ class ConfigsController extends SettingsAppController {
                     $this->redirect('index');
                 }
             }
-            //$this->Transaction->commit();
+            $this->_write();
             $this->Session->setFlash(__('The Config has been saved', true));
             $this->redirect('index');
         }
@@ -45,9 +44,22 @@ class ConfigsController extends SettingsAppController {
         }
         if ($this->Config->del($id)) {
             $this->Session->setFlash(__('Config deleted', true));
+            $this->_write();
             $this->redirect('index');
         }
     }
 
+    function _write()
+    {
+		$configs = $this->Config->find('all');
+		$file = new File(CACHE . 'config.php', true, 0777);
+		$lines = array('<?php');
+		foreach ($configs as $config) {
+			$value = str_replace("'", "\\'", $config['Config']['value']);
+			$lines[] = "Configure::write('{$config['Config']['name']}', '{$value}');";
+		}
+		$lines[] = '?>';
+		$file->write(implode("\n", $lines));
+    }
 }
 ?>
