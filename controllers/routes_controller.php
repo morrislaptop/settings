@@ -63,7 +63,8 @@ class RoutesController extends AppController {
 		$file = new File(CACHE . 'routes.php', true, 0777);
 		$lines = array('<?php');
 		foreach ($routes as $route) {
-			$lines[] = "Router::connect('{$route['Route']['url']}', array('controller' => '" . low($route['Route']['controller']) . "', 'action' => '{$route['Route']['action']}'));";
+			$controller = low(Inflector::underscore($route['Route']['controller']));
+			$lines[] = "Router::connect('{$route['Route']['url']}', array('controller' => '" . $controller . "', 'action' => '{$route['Route']['action']}'));";
 		}
 		$lines[] = '?>';
 		$file->write(implode("\n", $lines));
@@ -71,12 +72,8 @@ class RoutesController extends AppController {
     
     function _controllers()
     {
-		$folder = new Folder(APP . 'controllers');
-		$ls = $folder->ls(true);
-		$controllers = array();
-		foreach ($ls[1] as $file) {
-			$controllers[] = ucwords(str_replace('_controller.php', '', $file));
-		}
+    	$controllers = Configure::listObjects('controller');
+    	unset($controllers[0]); // removes App
 		return $controllers;
     }
     

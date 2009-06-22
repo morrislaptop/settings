@@ -24,6 +24,7 @@
 			<th class="headerLeft">URL</th>
 			<th>Controller</th>
 			<th>Action</th>
+			<th>Extra</th>
 			<th class="headerRight">&nbsp;</th>
 		</tr>
 	</thead>
@@ -34,6 +35,7 @@
 			<td>
 				<?php echo $form->input('Route.0.action', array('label' => false, 'class' => 'action')); ?>
 			</td>
+			<td><?php echo $form->input('Route.0.extra', array('label' => false)); ?></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -56,6 +58,7 @@
 							echo $form->input('Route.'.$i.'.action', array('label' => false, 'options' => $options, 'class' => 'action')); 
 						?>
 					</td>
+					<td><?php echo $form->input('Route.'.$i.'.extra', array('label' => false)); ?></td>
 					<td><?php echo $form->input('Route.'.$i.'.id') . $html->link('Delete', array('action' => 'delete', $route['Route']['id']), null, 'Are your sure?'); ?></td>
 				</tr>
 				<?php
