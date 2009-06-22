@@ -52,7 +52,7 @@ class ConfigsController extends SettingsAppController {
     function _write()
     {
 		$configs = $this->Config->find('all');
-		$file = new File(CACHE . 'config.php', true, 0777);
+		$file = new File(CACHE . 'settings' . DS . 'config.php', true, 0777);
 		$lines = array('<?php');
 		foreach ($configs as $config) {
 			$value = str_replace("'", "\\'", $config['Config']['value']);

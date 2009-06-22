@@ -60,7 +60,7 @@ class RoutesController extends AppController {
     function _write()
     {
 		$routes = $this->Route->find('all');
-		$file = new File(CACHE . 'routes.php', true, 0777);
+		$file = new File(CACHE . 'settings' . DS . 'routes.php', true, 0777);
 		$lines = array('<?php');
 		foreach ($routes as $route) {
 			$controller = low(Inflector::underscore($route['Route']['controller']));
