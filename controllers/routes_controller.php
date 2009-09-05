@@ -2,19 +2,19 @@
 class RoutesController extends AppController {
 
 	var $name = 'Routes';
-	
+
     function admin_index() {
         $routes = $this->Route->find('all', array('order' => 'Route.url ASC'));
         $controllers = $this->_controllers();
         foreach ($routes as &$route) {
-			$route['Route']['actions'] = $this->_actions($route['Route']['controller']);	
+			$route['Route']['actions'] = $this->_actions($route['Route']['controller']);
         }
         $controllers = array_combine($controllers, $controllers);
         $actions = array();
         $this->set(compact('controllers', 'actions', 'routes'));
     }
-    
-    function admin_save() 
+
+    function admin_save()
     {
         if (empty($this->data)) {
             $this->Session->setFlash(__('Invalid Route', true));
@@ -49,14 +49,14 @@ class RoutesController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
     }
-    
+
     function admin_actions() {
 		$controller = $this->params['url']['controller'];
 		$actions = $this->_actions($controller);
 		$actions = array_combine($actions, $actions);
-		$this->set(compact('actions'));		
+		$this->set(compact('actions'));
     }
-    
+
     function _write()
     {
 		$routes = $this->Route->find('all');
@@ -69,14 +69,14 @@ class RoutesController extends AppController {
 		$lines[] = '?>';
 		$file->write(implode("\n", $lines));
     }
-    
+
     function _controllers()
     {
     	$controllers = Configure::listObjects('controller');
-    	unset($controllers[0]); // removes App
+    	unset($controllers[array_search('App', $controllers)]); // removes App
 		return $controllers;
     }
-    
+
     function _actions($controller)
     {
 		$className = $controller . 'Controller';
