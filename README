@@ -1,0 +1,46 @@
+h1. Settings Plugin
+
+Settings allows you to provide a web interface to settings, routes and translations that traditionally could only be changed by editing files by hand. Obviously there are reasons for this, so using this plugin incorrectly might corrupt your application.
+
+h2. Included Features
+
+h3. Configs
+
+A simple interface where you can enter key / value pairs that will eventually go into the Configure::class. A good example for this would be the ability to turn off debugging remotely in case you let it on.
+
+Accessible via http://yourdomain.com/admin/settings/configs
+
+h3. Routes
+
+A simple interface where you can add routes and specify which controller and action the route points to. An extra field is also included where you can add extra PHP code to further control your routes.
+
+Accessible via http://yourdomain.com/admin/settings/routes
+
+h3. Translations
+
+Another simple interface where you can add translations for your application. The plugin will automatically write the translations into the correct language and domain .po file inside your locale folder.
+
+Accessible via http://yourdomain.com/admin/settings/translations
+
+h2. Installation
+
+# Grab a copy of the plugin and put it in your app/plugins directory as normal.  
+# Create a settings folder inside your cache folder and give full writable permissions
+# Give full writable permissions to your app/locale folder and all sub folders
+# Put some includes inside app/config/bootstrap.php and app/config/routes.php
+
+*app/config/bootstrap.php*
+
+<pre>
+	if ( file_exists(CACHE . 'settings' . DS . 'config.php') ) {
+		require_once(CACHE . 'settings' . DS . 'config.php');
+	}
+</pre>
+
+*app/config/routes.php*
+
+<pre>
+	if ( file_exists(CACHE . 'settings' . DS . 'routes.php') ) {
+		require_once(CACHE . 'settings' . DS . 'routes.php');
+	}
+</pre>
