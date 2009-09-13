@@ -64,14 +64,20 @@ class TranslationsController extends SettingsAppController {
     {
 		$translations = $this->Translation->find('all');
 		$trunced = array();
-		foreach ($translations as $t) {
+		foreach ($translations as $t) 
+		{
 			$t = $t['Translation'];
+			if ( empty($t['value']) ) {
+				continue;
+			}
+			
 			$lang = $t['language'];
-			$file = APP . 'locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . 'default.po';
-			$file = new File($file);
-			if ( !isset($trunced[$lang]) ) {
+			$domain = $t['domain'];
+			$filePath = APP . 'locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . $domain . '.po';
+			$file = new File($filePath);
+			if ( !isset($trunced[$filePath]) ) {
 				$file->open('w');
-				$trunced[$lang] = true;
+				$trunced[$filePath] = true;
 				$file->close();
 			}
 

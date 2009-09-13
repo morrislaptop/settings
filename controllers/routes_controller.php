@@ -2,6 +2,7 @@
 class RoutesController extends AppController {
 
 	var $name = 'Routes';
+	var $components = array('RequestHandler');
 
     function admin_index() {
         $routes = $this->Route->find('all', array('order' => 'Route.url ASC'));
@@ -64,7 +65,13 @@ class RoutesController extends AppController {
 		$lines = array('<?php');
 		foreach ($routes as $route) {
 			$controller = low(Inflector::underscore($route['Route']['controller']));
-			$lines[] = "Router::connect('{$route['Route']['url']}', array('controller' => '" . $controller . "', 'action' => '{$route['Route']['action']}'));";
+			if ( empty($route['Route']['extra']) ) {
+				$extra = ')';
+			}
+			else {
+				$extra = $route['Route']['extra'];
+			}
+			$lines[] = "Router::connect('{$route['Route']['url']}', array('controller' => '" . $controller . "', 'action' => '{$route['Route']['action']}'{$extra});";
 		}
 		$lines[] = '?>';
 		$file->write(implode("\n", $lines));
