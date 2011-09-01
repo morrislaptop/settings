@@ -28,6 +28,7 @@ h2. Installation
 # Create a settings folder inside your cache folder and give full writable permissions
 # Give full writable permissions to your app/locale folder and all sub folders
 # Put some includes inside app/config/bootstrap.php and app/config/routes.php
+# Run cake schema create -plugin settings
 
 *app/config/bootstrap.php*
 

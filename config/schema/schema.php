@@ -1,7 +1,7 @@
 <?php 
 /* SVN FILE: $Id$ */
 /* App schema generated on: 2009-09-08 17:09:47 : 1252395587*/
-class AppSchema extends CakeSchema {
+class SettingsSchema extends CakeSchema {
 	var $name = 'App';
 
 	function before($event = array()) {
