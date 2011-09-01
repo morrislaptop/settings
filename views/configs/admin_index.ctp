@@ -1,7 +1,7 @@
-<?php echo $html->css('tables', false, false, false); ?>
+<?php echo $this->Html->css('tables'); ?>
 <div class="configs index">
 <h2>Config Values</h2>
-<?php echo $form->create('Config', array('controller' => 'config', 'action' => 'save')); ?>
+<?php echo $this->Form->create('Config', array('controller' => 'config', 'action' => 'save')); ?>
 <table>
 	<thead>
 		<tr>
@@ -12,12 +12,12 @@
 	</thead>
 	<tfoot>
 		<tr>
-			<td><?php echo $form->input('Config.0.name',array('label'=>false)); ?></td>
-			<td><?php echo $form->input('Config.0.value',array('label'=>false)); ?></td>
+			<td><?php echo $this->Form->input('Config.0.name',array('label'=>false)); ?></td>
+			<td><?php echo $this->Form->input('Config.0.value',array('label'=>false)); ?></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td colspan="3"><?php echo $form->submit(); ?></td>
+			<td colspan="3"><?php echo $this->Form->submit(); ?></td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -25,12 +25,11 @@
 			$i = 1;
 			foreach ($configs as $config)
 			{
-				$form->data = $config;
 				?>
 				<tr>
-					<td><?php echo $form->input('Config.'.$i.'.id') . $form->input('Config.'.$i.'.name',array('label'=>false)); ?></td>
-					<td><?php echo $form->input('Config.'.$i.'.value',array('label'=>false)); ?></td>
-					<td><?php echo $html->link('Delete','delete/'.$config['Config']['id'],null,'Are your sure?'); ?></td>
+					<td><?php echo $this->Form->input('Config.'.$i.'.id') . $this->Form->input('Config.'.$i.'.name',array('label'=>false)); ?></td>
+					<td><?php echo $this->Form->input('Config.'.$i.'.value',array('label'=>false)); ?></td>
+					<td><?php echo $this->Html->link('Delete', 'delete/' . $config['Config']['id'], null, 'Are your sure?'); ?></td>
 				</tr>
 				<?php
 			    $i++;

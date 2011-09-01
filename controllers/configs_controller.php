@@ -3,13 +3,20 @@ class ConfigsController extends SettingsAppController {
 
     var $name = 'Configs';
     var $helpers = array('Html', 'Form');
-    var $layout = 'app';
 
     function admin_index() {
-        $this->set('configs', $this->Config->find('all',array(
-            'order' => 'Config.name ASC'
-            )
-        ));
+    	$order = 'Config.name ASC';
+    	$configs = $this->Config->find('all', compact('order'));
+    	
+    	// Transform data so form will find it.
+    	$data = array('Config' => array());
+    	$i = 1;
+    	foreach ($configs as $config) {
+			$data['Config'][$i] = $config['Config'];
+    	}
+    	$this->data = $data;
+    	
+    	$this->set(compact('configs'));
     }
 
     function admin_save() {
