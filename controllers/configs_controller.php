@@ -13,6 +13,7 @@ class ConfigsController extends SettingsAppController {
     	$i = 1;
     	foreach ($configs as $config) {
 			$data['Config'][$i] = $config['Config'];
+			$i++;
     	}
     	$this->data = $data;
     	
