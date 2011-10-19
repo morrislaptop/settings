@@ -50,7 +50,7 @@ class ConfigsController extends SettingsAppController {
             $this->Session->setFlash(__('Invalid id for Config', true));
             $this->redirect('index');
         }
-        if ($this->Config->del($id)) {
+        if ($this->Config->delete($id)) {
             $this->Session->setFlash(__('Config deleted', true));
             $this->_write();
             $this->redirect('index');
