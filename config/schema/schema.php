@@ -32,6 +32,7 @@ class SettingsSchema extends CakeSchema {
 	var $translations = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'language' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20),
+		'domain' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20),
 		'name' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100),
 		'value' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),

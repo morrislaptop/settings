@@ -4,14 +4,25 @@ class RoutesController extends AppController {
 	var $name = 'Routes';
 	var $components = array('RequestHandler');
 
-    function admin_index() {
-        $routes = $this->Route->find('all', array('order' => 'Route.url ASC'));
-        $controllers = $this->_controllers();
-        foreach ($routes as &$route) {
-			$route['Route']['actions'] = $this->_actions($route['Route']['controller']);
-        }
-        $controllers = array_combine($controllers, $controllers);
+    function admin_index() 
+    {
+    	// Get select options
+    	$controllers = $this->_controllers();
+		$controllers = array_combine($controllers, $controllers);
         $actions = array();
+
+        // Find routes and transform to Form will find it
+        $routes = $this->Route->find('all', array('order' => 'Route.url ASC'));
+        $data = array('Route' => array());
+        $i = 1;
+        foreach ($routes as &$route) {
+        	$data['Route'][$i] = $route['Route'];
+			$route['Route']['actions'] = $this->_actions($route['Route']['controller']);
+			$i++;
+        }
+    	$this->request->data = $data;
+    	
+    	// Go
         $this->set(compact('controllers', 'actions', 'routes'));
     }
 
@@ -44,7 +55,7 @@ class RoutesController extends AppController {
             $this->Session->setFlash(__('Invalid id for route', true));
             $this->redirect(array('action' => 'index'));
         }
-        if ($this->Route->del($id)) {
+        if ($this->Route->delete($id)) {
             $this->Session->setFlash(__('Route deleted', true));
             $this->_write();
             $this->redirect(array('action' => 'index'));
@@ -56,15 +67,20 @@ class RoutesController extends AppController {
 		$actions = $this->_actions($controller);
 		$actions = array_combine($actions, $actions);
 		$this->set(compact('actions'));
+		$this->set('_serialize', array('actions'));
     }
 
     function _write()
     {
+    	// Load library
+    	App::uses('File', 'Utility');
+    	
+    	// Read routes
 		$routes = $this->Route->find('all');
 		$file = new File(CACHE . 'settings' . DS . 'routes.php', true, 0777);
 		$lines = array('<?php');
 		foreach ($routes as $route) {
-			$controller = low(Inflector::underscore($route['Route']['controller']));
+			$controller = strtolower(Inflector::underscore(str_replace('Controller', '', $route['Route']['controller'])));
 			if ( empty($route['Route']['extra']) ) {
 				$extra = ')';
 			}
@@ -79,17 +95,16 @@ class RoutesController extends AppController {
 
     function _controllers()
     {
-    	$controllers = Configure::listObjects('controller');
+    	$controllers = App::objects('controller');
     	unset($controllers[array_search('App', $controllers)]); // removes App
 		return $controllers;
     }
 
     function _actions($controller)
     {
-		$className = $controller . 'Controller';
-		App::import('Controller', $controller);
-		$actions = get_class_methods($className);
-		$parent_actions = get_class_methods(get_parent_class($className));
+		App::import('Controller', str_replace('Controller', '', $controller));
+		$actions = get_class_methods($controller);
+		$parent_actions = get_class_methods(get_parent_class($controller));
 		$actions = array_diff($actions, $parent_actions);
 		return $actions;
     }

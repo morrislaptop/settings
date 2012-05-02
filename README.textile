@@ -24,24 +24,33 @@ Accessible via http://yourdomain.com/admin/settings/translations
 
 h2. Installation
 
-# Grab a copy of the plugin and put it in your app/plugins directory as normal.  
-# Create a settings folder inside your cache folder and give full writable permissions
-# Give full writable permissions to your app/locale folder and all sub folders
-# Put some includes inside app/config/bootstrap.php and app/config/routes.php
-# Run cake schema create -plugin settings
+Add the repo to your working directory
 
-*app/config/bootstrap.php*
+	git clone https://github.com/morrislaptop/settings app/Plugin/Settings
+	
+Create a settings folder inside your cache folder and give full writable permissions
 
-<pre>
-	if ( file_exists(CACHE . 'settings' . DS . 'config.php') ) {
-		require_once(CACHE . 'settings' . DS . 'config.php');
-	}
-</pre>
+	mkdir app/tmp/cache/settings
+	chmod -R 0777 app/tmp/cache/settings
 
-*app/config/routes.php*
+Give full writable permissions to your app/locale folder and all sub folders
 
-<pre>
+	chmod -R 0777 app/Locale
+
+Create the database tables
+
+	cake schema create -plugin settings
+	
+Make sure your are parsing the JSON extension in your routes.php
+
+	Router::parseExtensions('json');
+	
+Load the plugin
+
+	CakePlugin::load('Settings', array('bootstrap' => true));
+	
+Add the following to your routes.php
+
 	if ( file_exists(CACHE . 'settings' . DS . 'routes.php') ) {
 		require_once(CACHE . 'settings' . DS . 'routes.php');
-	}
-</pre>
+	}	

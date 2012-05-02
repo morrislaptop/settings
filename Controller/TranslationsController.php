@@ -5,19 +5,31 @@ class TranslationsController extends SettingsAppController {
     var $helpers = array('Html', 'Form');
     var $layout = 'app';
 
-    function admin_index() {
-        $this->set('translations', $this->Translation->find('all',array(
-            'order' => 'Translation.name ASC'
-            )
-        ));
+    function admin_index() 
+    {
+    	$order = 'Translation.name ASC';
+        $translations = $this->Translation->find('all', compact('order'));
+        
+        // Transform data so form will find it.
+    	$data = array('Translation' => array());
+    	$i = 1;
+    	foreach ($translations as $translation) {
+			$data['Translation'][$i] = $translation['Translation'];
+			$i++;
+    	}
+    	$this->data = $data;
+        
+        // Go
         $languages = $this->_languages();
         $languages = array_combine($languages, $languages);
-        $this->set(compact('languages'));
+        $this->set(compact('languages', 'translations'));
     }
 
     function _languages() {
-		$folder = new Folder(APP . 'locale');
-		$ls = $folder->ls(true);
+    	// Load library
+    	App::uses('Folder', 'Utility');
+		$folder = new Folder(APP . 'Locale');
+		$ls = $folder->read(true);
 		return $ls[0];
     }
 
@@ -53,7 +65,7 @@ class TranslationsController extends SettingsAppController {
             $this->Session->setFlash(__('Invalid id for translation', true));
             $this->redirect('index');
         }
-        if ($this->Translation->del($id)) {
+        if ($this->Translation->delete($id)) {
             $this->Session->setFlash(__('Translation deleted', true));
             $this->_write();
             $this->redirect('index');
@@ -62,6 +74,9 @@ class TranslationsController extends SettingsAppController {
 
     function _write()
     {
+    	// Load library
+    	App::uses('File', 'Utility');
+    	
 		$translations = $this->Translation->find('all');
 		$trunced = array();
 		foreach ($translations as $t) 
@@ -73,7 +88,7 @@ class TranslationsController extends SettingsAppController {
 			
 			$lang = $t['language'];
 			$domain = $t['domain'];
-			$filePath = APP . 'locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . $domain . '.po';
+			$filePath = APP . 'Locale' . DS . $lang . DS . 'LC_MESSAGES' . DS . $domain . '.po';
 			$file = new File($filePath);
 			if ( !isset($trunced[$filePath]) ) {
 				$file->open('w');

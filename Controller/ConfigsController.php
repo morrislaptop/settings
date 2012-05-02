@@ -59,6 +59,10 @@ class ConfigsController extends SettingsAppController {
 
     function _write()
     {
+    	// Load library
+    	App::uses('File', 'Utility');
+    	
+    	// Read configs
 		$configs = $this->Config->find('all');
 		$file = new File(CACHE . 'settings' . DS . 'config.php', true, 0777);
 		$lines = array('<?php');

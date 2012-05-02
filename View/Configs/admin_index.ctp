@@ -2,6 +2,7 @@
 <div class="configs index">
 <h2>Config Values</h2>
 <?php echo $this->Form->create('Config', array('controller' => 'config', 'action' => 'save')); ?>
+<div id="filler"></div>
 <table>
 	<thead>
 		<tr>
@@ -29,7 +30,7 @@
 				<tr>
 					<td><?php echo $this->Form->input('Config.'.$i.'.id') . $this->Form->input('Config.'.$i.'.name',array('label'=>false)); ?></td>
 					<td><?php echo $this->Form->input('Config.'.$i.'.value',array('label'=>false)); ?></td>
-					<td><?php echo $this->Html->link('Delete', 'delete/' . $config['Config']['id'], null, 'Are your sure?'); ?></td>
+					<td class="actions"><?php echo $this->Html->link('Delete', 'delete/' . $config['Config']['id'], array('class' => 'delete'), 'Are your sure?'); ?></td>
 				</tr>
 				<?php
 			    $i++;
