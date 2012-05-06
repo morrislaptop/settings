@@ -27,7 +27,7 @@ h2. Installation
 Add the repo to your working directory
 
 <pre>
-git clone https://github.com/morrislaptop/settings app/Plugin/Settings
+git submodule add https://github.com/morrislaptop/settings app/Plugin/Settings
 </pre>
 	
 Create a settings folder inside your cache folder and give full writable permissions
