@@ -46,7 +46,7 @@ chmod -R 0777 app/Locale
 Create the database tables
 
 <pre>
-cake schema create -plugin settings
+cake schema create -p Settings
 </pre>
 	
 Make sure your are parsing the JSON extension in your routes.php
