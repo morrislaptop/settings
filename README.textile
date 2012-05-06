@@ -29,7 +29,13 @@ Add the repo to your working directory
 <pre>
 git submodule add https://github.com/morrislaptop/settings app/Plugin/Settings
 </pre>
-	
+
+Load the plugin
+
+<pre>
+CakePlugin::load('Settings', array('bootstrap' => true));
+</pre>
+
 Create a settings folder inside your cache folder and give full writable permissions
 
 <pre>
@@ -49,21 +55,10 @@ Create the database tables
 cake schema create -p Settings
 </pre>
 	
-Make sure your are parsing the JSON extension in your routes.php
-
-<pre>
-Router::parseExtensions('json');
-</pre>
-	
-Load the plugin
-
-<pre>
-CakePlugin::load('Settings', array('bootstrap' => true));
-</pre>
-	
 Add the following to your routes.php
 
 <pre>
+Router::parseExtensions('json');
 if ( file_exists(CACHE . 'settings' . DS . 'routes.php') ) {
 	require_once(CACHE . 'settings' . DS . 'routes.php');
 }
