@@ -52,7 +52,7 @@ chmod -R 0777 app/Locale
 Create the database tables
 
 <pre>
-app/Console/cake schema create -p Settings
+app/Console/cake schema create -p Settings Settings
 </pre>
 	
 Add the following to your routes.php
