@@ -43,7 +43,7 @@ mkdir app/tmp/cache/settings
 chmod -R 0777 app/tmp/cache/settings
 </pre>
 
-Give full writable permissions to your app/locale folder and all sub folders
+Give full writable permissions to your app/locale folder and all sub folders.
 
 <pre>
 chmod -R 0777 app/Locale
